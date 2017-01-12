@@ -46,6 +46,15 @@ class DemoApplication extends Component {
         this.props.demoApi.setHelloWord('Cipe');
     }
 
+    /**
+     * Cudlo klik
+     * @private
+     */
+    _onButtonClickLoadFromServer() {
+        LOG.debug('_onButtonClickLoadFromServer click');
+        this.props.demoApi.loadHelloFromServer({resourceUrl: this.props.resources.loadFromServerUrl});
+    }
+
 	/**
 	 * Main render method
 	 * @returns {*}
@@ -58,7 +67,8 @@ class DemoApplication extends Component {
                 <br />
                 <br />
                 <div>Kdo je  {this.props.nextProperty}</div>
-                <button style={{border: "1px solid red"}} onClick={()=>{this._onButtonClick()}}>Nastav cipa</button>
+                <button style={{border: "1px solid red"}} onClick={()=>{this._onButtonClick()}}>Nastav cipa</button><br /><br />
+                <button style={{border: "1px solid red"}} onClick={()=>{this._onButtonClickLoadFromServer()}}>Load from server</button>
             </div>
         );
 	}
@@ -69,7 +79,8 @@ class DemoApplication extends Component {
 const mapStoreToProps = (store) => {
 	return {
 		helloProperty: store.hello,
-        nextProperty: store.dummy
+        nextProperty: store.dummy,
+        resources: store.resources
 	}
 }
 
@@ -79,6 +90,10 @@ const mapDispatchToProps = (dispatch) => {
             setHelloWord: (text) => {
                 LOG.debug('call setHelloWord');
                 dispatch(Actions.setHello(text));
+            },
+            loadHelloFromServer: (context) => {
+                LOG.debug('call loadHelloFromServer');
+                dispatch(Actions.loadHello(context));
             }
         }
 	}

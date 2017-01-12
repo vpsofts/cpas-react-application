@@ -13,10 +13,16 @@
  * Created by petr.vasek@ibacz.eu on 15.09.2016.
  */
 
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
 import reducer from '../reducers/demoreducer'
+import observableEpic from '../observable-epics/demoepic'
 
+
+/**
+ * middleware with observable concept for async operation
+ */
+const epicMiddleware = createEpicMiddleware(observableEpic);
 
 /**
  * Factory object
@@ -32,8 +38,12 @@ const Factory = {
 			//store structure init
 			{
                 hello: initialProps.hello,
-                dummy: 'picaaa'
-			}
+                dummy: 'borec',
+                resources: {
+                    loadFromServerUrl: initialProps.resourceUrl
+                }
+			},
+            applyMiddleware(epicMiddleware)
 		);
 	}
 }

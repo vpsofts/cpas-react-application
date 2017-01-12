@@ -25,7 +25,15 @@ const Actions = {
 			type: 'DEMO_SET_HELLO',
 			value: hello
 		}
-	}
+	},
+
+    loadHello: (context) => {
+        return {
+            type: 'LOAD_HELLO',
+            context: context
+        }
+    }
+
 }
 
 export default Actions;

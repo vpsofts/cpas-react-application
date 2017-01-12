@@ -13,6 +13,9 @@
  * Created by petr.vasek@ibacz.eu on 15.09.2016.
  */
 import LoggerFactory from './../utils/logger';
+import Api from './../api/demoapi';
+import Actions from './../actions/demoactions';
+
 
 const LOG = LoggerFactory.getLogger('demoreducer.js');
 
@@ -23,6 +26,8 @@ const LOG = LoggerFactory.getLogger('demoreducer.js');
  * @returns {*}
  */
 export default function reducer(store, action) {
+
+    LOG.debug('Reducer this: ',this);
 
 	LOG.debug('Reduce: ',action);
 

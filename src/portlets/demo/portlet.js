@@ -18,6 +18,7 @@ import StoreFactory from '../../stores/demostore'
 import DemoApplication from './DemoApplication';
 import Messages from './../../localization/messages';
 import demoMessages from './../../localization/demomessages';
+import Rx from 'rxjs';
 
 
 const LOG = LoggerFactory.getLogger('demo/portlet.js');

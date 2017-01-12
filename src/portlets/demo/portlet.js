@@ -12,7 +12,15 @@
  * Created by petr.vasek@ibacz.eu on 14.09.2016.
  */
 import React, { PropTypes, Component } from 'react';
+import { Provider } from 'react-redux'
+import LoggerFactory from '../../utils/logger';
+import StoreFactory from '../../stores/demostore'
+import DemoApplication from './DemoApplication';
+import Messages from './../../localization/messages';
+import demoMessages from './../../localization/demomessages';
 
+
+const LOG = LoggerFactory.getLogger('demo/portlet.js');
 
 /**
  * Base portlet component
@@ -37,14 +45,34 @@ import React, { PropTypes, Component } from 'react';
  */
 class DemoPortlet extends Component {
 
+    constructor(props) {
+        super(props);
+
+        LoggerFactory.enableDebug(true);
+
+        LOG.debug('Init props',props);
+
+        this.store = StoreFactory.getStore(props);
+
+        LOG.debug("Created store", this.store.getState());
+
+        Messages.registerMessages(demoMessages);
+    }
+
+
 	/**
 	 * Base render
 	 * @returns {JSX}
 	 */
 	render() {
-		return (
-            <div>Hello beginner!</div>
-		);
+        return (
+            <Provider store={this.store}>
+                <DemoApplication
+                    ns={this.props.namespace}
+                    hello={this.props.hello}
+                />
+            </Provider>
+        );
 	}
 }
 

@@ -31,7 +31,8 @@ const Factory = {
 		return createStore(reducer,
 			//store structure init
 			{
-                hello: "Initialize hello"
+                hello: initialProps.hello,
+                dummy: 'picaaa'
 			}
 		);
 	}
